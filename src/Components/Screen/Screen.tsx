@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { SuperInput } from "../SuperInput/SuperInput";
 import style from "./screen.module.css";
 
 type ScreenPropsType = {
@@ -26,5 +27,11 @@ export const Screen: FC<ScreenPropsType> = ({
         </span>
       </div>
     );
-  } else return <div className={styleClass}>Screen</div>;
+  } else
+    return (
+      <div className={styleClass}>
+        <SuperInput inputText='max value' maxValue={10} />
+        <SuperInput inputText='start value' startValue={0} />
+      </div>
+    );
 };
