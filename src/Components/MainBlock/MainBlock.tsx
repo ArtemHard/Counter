@@ -16,7 +16,12 @@ export const MainBlock: FC<MainBlockPropsType> = ({
   return (
     <div className={style.wrapper}>
       <Screen count={count} maxValue={maxValue} startValue={startValue} />
-      <ButtonsBox />
+      <ButtonsBox
+        count={count}
+        maxValue={maxValue}
+        startValue={startValue}
+        setCount={() => ""}
+      />
     </div>
   );
 };
