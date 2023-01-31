@@ -1,23 +1,28 @@
-import { FC } from "react";
+import { ChangeEvent, FC } from "react";
+import { StateType } from "../../App";
 import style from "./superInput.module.css";
 type SuperInputPropsType = {
-  inputText: string;
-  startValue?: number;
-  maxValue?: number;
-  setMaxValue?: (number: number) => void;
-  setStartValue?: (number: number) => void;
+  inputText: "max value" | "start value";
+  state: StateType;
+  setState: (newState: StateType) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 export const SuperInput: FC<SuperInputPropsType> = ({
   inputText,
-  startValue,
-  maxValue,
-  setMaxValue,
-  setStartValue,
+  state,
+  onChange,
 }) => {
+  const value = inputText === "max value" ? state.maxValue : state.startValue;
   return (
     <div className={style.wrapper}>
       <p className={style.text}>{inputText + ":"}</p>
-      <input className={style.input} id='maxValue' type='number' />
+      <input
+        className={style.input}
+        id={inputText}
+        type='number'
+        value={value}
+        onChange={onChange}
+      />
     </div>
   );
 };

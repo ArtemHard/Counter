@@ -1,27 +1,35 @@
 import { useState } from "react";
 import "./App.css";
 import { MainBlock } from "./Components/MainBlock/MainBlock";
+type ErrorType = "Incorrect value" | 'enter values and press "set"' | null;
+export type StateType = {
+  count: number;
+  startValue: number;
+  maxValue: number;
+  error: ErrorType;
+};
+export type SuperPropsType = {
+  id: "settings" | "counter";
+  state: StateType;
+  setState: (newState: StateType) => void;
+};
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [startValue, setStartValue] = useState(0);
-  const [maxValue, setMaxValue] = useState(5);
+  const [state, setState] = useState<StateType>({
+    count: 0,
+    startValue: 0,
+    maxValue: 5,
+    error: null,
+  });
   return (
     <div className='App'>
       <MainBlock
         key='settings'
-        maxValue={maxValue}
-        startValue={startValue}
-        setStartValue={setStartValue}
-        setMaxValue={setMaxValue}
+        id='settings'
+        setState={setState}
+        state={state}
       />
-      <MainBlock
-        key='counter'
-        count={count}
-        maxValue={maxValue}
-        startValue={startValue}
-        setCount={setCount}
-      />
+      <MainBlock key='counter' id='counter' setState={setState} state={state} />
     </div>
   );
 }

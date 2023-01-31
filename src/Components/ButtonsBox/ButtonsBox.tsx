@@ -1,35 +1,23 @@
 import { FC } from "react";
+import { SuperPropsType } from "../../App";
 import { Button } from "../Button/Button";
 import style from "./buttonsBox.module.css";
 
-type ButtonsPanelPropsTypes = {
-  count?: number;
-  maxValue: number;
-  startValue: number;
-  setCount?: (number: number) => void;
-  setMaxValue?: (number: number) => void;
-  setStartValue?: (number: number) => void;
-};
-export const ButtonsBox: FC<ButtonsPanelPropsTypes> = ({
-  count,
-  maxValue,
-  setCount,
-  startValue,
-  setMaxValue,
-  setStartValue,
-}) => {
+export const ButtonsBox: FC<SuperPropsType> = ({ id, state, setState }) => {
+  const { count, maxValue, startValue } = state;
+
   const render = () => {
-    if (setCount && count !== undefined) {
+    if (id === "counter") {
       const onClickChangeCountHandler = () => {
         switch (count) {
           case maxValue:
             break;
           default:
-            setCount(count + 1);
+            setState({ ...state, count: count + 1 });
         }
       };
       const onClickResetCountHandler = () => {
-        setCount(startValue);
+        setState({ ...state, count: startValue });
       };
 
       return (
@@ -37,26 +25,30 @@ export const ButtonsBox: FC<ButtonsPanelPropsTypes> = ({
           <Button
             isDisabled={maxValue === count ? true : false}
             onClick={onClickChangeCountHandler}
-            text={"inc"}
-            key={"inc"}
+            text='inc'
+            key='inc'
           />
           <Button
             isDisabled={startValue === count ? true : false}
             onClick={onClickResetCountHandler}
-            text={"reset"}
-            key={"reset"}
+            text='reset'
+            key='reset'
           />
         </>
       );
-    } else
+    } else if (id === "settings") {
+      const onClickSetSettingsHandler = () => {
+        alert("Set settings");
+      };
       return (
         <Button
           isDisabled={false}
-          onClick={() => console.log("")}
-          text={"set"}
-          key={"set"}
+          onClick={onClickSetSettingsHandler}
+          text='set'
+          key='set'
         />
       );
+    }
   };
 
   return <div className={style.wrapper}>{render()}</div>;
