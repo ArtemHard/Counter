@@ -3,7 +3,7 @@ import style from "./button.module.css";
 
 type IncrementButtonPropsType = {
   onClick: () => void;
-  text: "Inc" | "reset" | "set";
+  text: "inc" | "reset" | "set";
   isDisabled: boolean;
 };
 

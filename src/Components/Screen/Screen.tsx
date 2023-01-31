@@ -6,32 +6,48 @@ type ScreenPropsType = {
   count?: number;
   maxValue?: number;
   startValue?: number;
+  setStartValue?: (number: number) => void;
+  setMaxValue?: (number: number) => void;
 };
 
 export const Screen: FC<ScreenPropsType> = ({
   count,
   maxValue,
   startValue,
+  setStartValue,
+  setMaxValue,
 }) => {
-  const styleClass = count ? style["screen-number"] : style["screen-params"];
+  const styleClass = setStartValue
+    ? style["screen-params"]
+    : style["screen-number"];
 
-  if (count) {
+  if (setStartValue) {
+    // Функция на изменение MinMax пришла ? рендер настроек
+    return (
+      <div className={styleClass}>
+        <SuperInput
+          inputText='max value'
+          maxValue={maxValue}
+          setMaxValue={setMaxValue}
+        />
+        <SuperInput
+          inputText='start value'
+          startValue={startValue}
+          setStartValue={setStartValue}
+        />
+      </div>
+    );
+  } // : рендер числа
+  else
     return (
       <div className={styleClass}>
         <span
           className={
-            count === maxValue ? style.number + " " + style.error : style.number
+            count === maxValue ? style.number + " " + style.error : style.number // Макс число достигнуто? красный цвет : default
           }
         >
           {count}
         </span>
-      </div>
-    );
-  } else
-    return (
-      <div className={styleClass}>
-        <SuperInput inputText='max value' maxValue={10} />
-        <SuperInput inputText='start value' startValue={0} />
       </div>
     );
 };

@@ -4,11 +4,15 @@ type SuperInputPropsType = {
   inputText: string;
   startValue?: number;
   maxValue?: number;
+  setMaxValue?: (number: number) => void;
+  setStartValue?: (number: number) => void;
 };
 export const SuperInput: FC<SuperInputPropsType> = ({
   inputText,
   startValue,
   maxValue,
+  setMaxValue,
+  setStartValue,
 }) => {
   return (
     <div className={style.wrapper}>

@@ -27,7 +27,7 @@ export const ButtonsPanel: FC<ButtonsPanelPropsTypes> = ({
       <Button
         isDisabled={count === maxValue}
         onClick={onClickIncrementBtnHandler}
-        text='Inc'
+        text='inc'
       />
       <Button
         isDisabled={count === minValue}
