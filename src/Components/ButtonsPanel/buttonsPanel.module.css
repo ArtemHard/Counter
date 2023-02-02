@@ -1,9 +1,0 @@
-.wrapper {
-    border: 2px solid aqua;
-    border-radius: 5px;
-    height: 40%;
-    display: flex;
-    justify-content: space-between;
-    padding: 5%;
-    gap: 40px;
-}

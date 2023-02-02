@@ -24,3 +24,7 @@
    display: block;
    outline: none;
 }
+
+.error {
+    border: 2px solid red;
+}

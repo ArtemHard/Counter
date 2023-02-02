@@ -4,7 +4,7 @@ import { Button } from "../Button/Button";
 import style from "./buttonsBox.module.css";
 
 export const ButtonsBox: FC<SuperPropsType> = ({ id, state, setState }) => {
-  const { count, maxValue, startValue } = state;
+  const { count, maxValue, startValue, error } = state;
 
   const render = () => {
     if (id === "counter") {
@@ -23,13 +23,13 @@ export const ButtonsBox: FC<SuperPropsType> = ({ id, state, setState }) => {
       return (
         <>
           <Button
-            isDisabled={maxValue === count ? true : false}
+            isDisabled={error || maxValue === count ? true : false}
             onClick={onClickChangeCountHandler}
             text='inc'
             key='inc'
           />
           <Button
-            isDisabled={startValue === count ? true : false}
+            isDisabled={error || startValue === count ? true : false}
             onClick={onClickResetCountHandler}
             text='reset'
             key='reset'
@@ -38,11 +38,15 @@ export const ButtonsBox: FC<SuperPropsType> = ({ id, state, setState }) => {
       );
     } else if (id === "settings") {
       const onClickSetSettingsHandler = () => {
-        alert("Set settings");
+        localStorage.setItem("error", JSON.stringify(error));
+        localStorage.setItem("count", JSON.stringify(count));
+        localStorage.setItem("startValue", JSON.stringify(startValue));
+        localStorage.setItem("maxValue", JSON.stringify(maxValue));
+        setState({ ...state, count: startValue, error: null });
       };
       return (
         <Button
-          isDisabled={false}
+          isDisabled={error === 'enter values and press "set"' ? false : true}
           onClick={onClickSetSettingsHandler}
           text='set'
           key='set'

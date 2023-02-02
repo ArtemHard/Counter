@@ -23,6 +23,14 @@
     font-weight: 800;
 }
 
+.text {
+    color: aqua;
+    font-size: 30px;
+    font-weight: 800;
+}
+/*error Цифры*/
 .error {
     color: red;
 }
+
+
