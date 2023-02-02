@@ -27,12 +27,18 @@ function App() {
 
   useEffect(() => {
     const errorLocalStorage = () => {
+      console.log(localStorage.getItem("error"));
+
       if (localStorage.getItem("error") === "Incorrect value")
         return "Incorrect value";
       if (localStorage.getItem("error") === 'enter values and press "set"')
         return 'enter values and press "set"';
       else return null;
     };
+    console.log(Number(localStorage.getItem("count")));
+    console.log(Number(localStorage.getItem("startValue")));
+    console.log(Number(localStorage.getItem("maxValue")));
+    console.log(errorLocalStorage());
 
     setState({
       count: Number(localStorage.getItem("count")) || 0,
