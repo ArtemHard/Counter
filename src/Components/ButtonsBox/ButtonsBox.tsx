@@ -38,10 +38,10 @@ export const ButtonsBox: FC<SuperPropsType> = ({ id, state, setState }) => {
       );
     } else if (id === "settings") {
       const onClickSetSettingsHandler = () => {
-        localStorage.setItem("error", JSON.stringify(error));
-        localStorage.setItem("count", JSON.stringify(count));
-        localStorage.setItem("startValue", JSON.stringify(startValue));
-        localStorage.setItem("maxValue", JSON.stringify(maxValue));
+        // localStorage.setItem("error", JSON.stringify(error));
+        // localStorage.setItem("count", JSON.stringify(count));
+        // localStorage.setItem("startValue", JSON.stringify(startValue));
+        // localStorage.setItem("maxValue", JSON.stringify(maxValue));
         setState({ ...state, count: startValue, error: null });
       };
       return (

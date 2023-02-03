@@ -1,4 +1,5 @@
-import { ChangeEvent, FC } from "react";
+import { log } from "console";
+import { ChangeEvent, FC, useEffect } from "react";
 import { StateType } from "../../App";
 import style from "./superInput.module.css";
 type SuperInputPropsType = {
@@ -7,25 +8,31 @@ type SuperInputPropsType = {
   state: StateType;
   setState: (newState: StateType) => void;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  errorStyle: ErrorInputType;
 };
+type ErrorInputType = {
+  maxValue: boolean;
+  startValue: boolean;
+};
+
 export const SuperInput: FC<SuperInputPropsType> = ({
   formConnector,
   inputText,
   state,
   onChange,
+  errorStyle,
 }) => {
   const { maxValue, startValue } = state;
   const value = inputText === "max value" ? maxValue : startValue;
   const inputStyle = () => {
-    if (inputText === "max value" && (maxValue <= startValue || maxValue < 0))
-      return " " + style.error;
-    if (
-      inputText === "start value" &&
-      (startValue >= maxValue || startValue < 0)
-    )
-      return " " + style.error;
-    else return "";
+    if (inputText === "max value") {
+      return errorStyle.maxValue ? " " + style.error : "";
+    }
+    if (inputText === "start value") {
+      return errorStyle.startValue ? " " + style.error : "";
+    }
   };
+
   return (
     <div className={style.wrapper}>
       <p className={style.text}>{inputText + ":"}</p>

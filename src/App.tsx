@@ -1,3 +1,4 @@
+import { log } from "console";
 import { useState, useEffect } from "react";
 import "./App.css";
 import { MainBlock } from "./Components/MainBlock/MainBlock";
@@ -18,35 +19,23 @@ export type SuperPropsType = {
 };
 
 function App() {
+  //BAG => функция не отрабатывает
+  const errorLocalStorage = () => {
+    // debugger;
+    if (localStorage.getItem("error") === "Incorrect value")
+      return "Incorrect value";
+    if (localStorage.getItem("error") === "null") return null;
+    else return 'enter values and press "set"';
+  };
+  console.log(localStorage.getItem("error"));
+  console.log();
+  console.log();
   const [state, setState] = useState<StateType>({
-    count: 0,
-    startValue: 0,
-    maxValue: 5,
-    error: null,
+    count: Number(localStorage.getItem("count")) || 0,
+    startValue: Number(localStorage.getItem("startValue")) || 0,
+    maxValue: Number(localStorage.getItem("maxValue")) || 5,
+    error: errorLocalStorage(),
   });
-
-  useEffect(() => {
-    const errorLocalStorage = () => {
-      console.log(localStorage.getItem("error"));
-
-      if (localStorage.getItem("error") === "Incorrect value")
-        return "Incorrect value";
-      if (localStorage.getItem("error") === 'enter values and press "set"')
-        return 'enter values and press "set"';
-      else return null;
-    };
-    console.log(Number(localStorage.getItem("count")));
-    console.log(Number(localStorage.getItem("startValue")));
-    console.log(Number(localStorage.getItem("maxValue")));
-    console.log(errorLocalStorage());
-
-    setState({
-      count: Number(localStorage.getItem("count")) || 0,
-      startValue: Number(localStorage.getItem("startValue")) || 0,
-      maxValue: Number(localStorage.getItem("maxValue")) || 5,
-      error: errorLocalStorage(),
-    });
-  }, []);
 
   useEffect(() => {
     localStorage.setItem("error", JSON.stringify(state.error));
