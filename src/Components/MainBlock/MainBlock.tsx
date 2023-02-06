@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { SuperPropsType } from "../../App";
 import { ButtonsBox } from "../ButtonsBox/ButtonsBox";
 import { Screen } from "../Screen/Screen";
