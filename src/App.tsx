@@ -1,7 +1,8 @@
-import { loadavg } from "os";
 import { useState, useEffect } from "react";
 import "./App.css";
+import { Counter } from "./Components/MainBlock/Counter/Counter";
 import { MainBlock } from "./Components/MainBlock/MainBlock";
+import { Settings } from "./Components/MainBlock/Settings/Settings";
 
 type ErrorType = "Incorrect value" | 'enter values and press "set"' | null;
 export type DisplayType = "counterMin" | "settingsMin" | null;
@@ -12,7 +13,12 @@ export type StateType = {
   error: ErrorType;
   display: DisplayType;
 };
-export type idType = "settings" | "counter" | "counterMin" | "settingsMin";
+export type idType =
+  | "settings"
+  | "counter"
+  | "counterMin"
+  | "settingsMin"
+  | null;
 export type SuperPropsType = {
   id: idType;
   state: StateType;
@@ -32,7 +38,7 @@ function App() {
     startValue: Number(localStorage.getItem("startValue")) || 0,
     maxValue: Number(localStorage.getItem("maxValue")) || 5,
     error: errorLocalStorage(),
-    display: null,
+    display: "counterMin",
   });
 
   useEffect(() => {
@@ -42,40 +48,11 @@ function App() {
     localStorage.setItem("maxValue", JSON.stringify(state.maxValue));
   }, [state]);
 
-  const renderDisplay = (display: DisplayType) => {
-    switch (display) {
-      case "counterMin":
-        return (
-          <>
-            <MainBlock id='counterMin' setState={setState} state={state} />
-          </>
-        );
-      case "settingsMin":
-        return (
-          <>
-            <MainBlock id='settingsMin' setState={setState} state={state} />
-          </>
-        );
-      default:
-        return (
-          <>
-            <MainBlock
-              key='settings'
-              id='settings'
-              setState={setState}
-              state={state}
-            />
-            <MainBlock
-              key='counter'
-              id='counter'
-              setState={setState}
-              state={state}
-            />
-          </>
-        );
-    }
-  };
-  return <div className='App'>{renderDisplay(state.display)}</div>;
+  return (
+    <div className='App'>
+      <MainBlock state={state} setState={setState} />
+    </div>
+  );
 }
 
 export default App;
