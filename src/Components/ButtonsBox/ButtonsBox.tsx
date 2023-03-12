@@ -1,22 +1,28 @@
 import { FC } from "react";
+import { useDispatch } from "react-redux";
 import { DisplayType, idType, SuperPropsType } from "../../App";
+import { increaseAC, resetAC } from "../../redux/counterAC";
 import { Button } from "../Button/Button";
 import style from "./buttonsBox.module.css";
 
 export const ButtonsBox: FC<SuperPropsType> = ({ id, state, setState }) => {
   const { count, maxValue, startValue, error, display } = state;
 
+  const dispatch = useDispatch()
+  
   const render = (id: idType, display: DisplayType) => {
     const onClickChangeCountHandler = () => {
-      switch (count) {
-        case maxValue:
-          break;
-        default:
-          setState({ ...state, count: count + 1 });
-      }
+      // switch (count) {
+      //   case maxValue:
+      //     break;
+      //   default:
+      //     setState({ ...state, count: count + 1 });
+      // }
+      dispatch(increaseAC())
     };
     const onClickResetCountHandler = () => {
-      setState({ ...state, count: startValue });
+      // setState({ ...state, count: startValue });
+      dispatch(resetAC())
     };
     const onClickSetSettingsHandler = () => {
       switch (display) {
